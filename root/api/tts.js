@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       auth: client,
     });
 
-    const { text } = req.body; // アプリから送られてくるテキスト
+    const { text } = req.body;
 
     const [response] = await textToSpeech.text.synthesize({
       requestBody: {
@@ -31,9 +31,9 @@ export default async function handler(req, res) {
     });
 
     const audioContent = response.audioContent;
-
     res.setHeader('Content-Type', 'audio/mpeg');
     res.send(Buffer.from(audioContent, 'base64'));
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'TTS error' });
