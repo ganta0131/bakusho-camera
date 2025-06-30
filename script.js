@@ -6,10 +6,47 @@ const photo = document.getElementById("photo");
 const comment = document.getElementById("comment");
 
 // カメラ起動
-navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+if (window.location.protocol !== 'https:') {
+  alert('このアプリケーションはHTTPS（https://）でアクセスする必要があります。');
+  return;
+}
+
+// モバイルデバイスのカメラ設定
+const constraints = {
+  video: {
+    facingMode: 'user',  // フロントカメラを使用
+    width: { ideal: 1280 },
+    height: { ideal: 720 },
+    aspectRatio: { ideal: 1.3333333333333333 }
+  }
+};
+
+navigator.mediaDevices.getUserMedia(constraints).then(stream => {
   video.srcObject = stream;
+  video.play();
+  
+  // ビデオの向きを自動調整
+  const handleOrientation = () => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const isPortrait = width < height;
+    
+    video.style.transform = isPortrait ? 'rotate(90deg)' : 'rotate(0deg)';
+    video.style.width = isPortrait ? '100vh' : '100vw';
+    video.style.height = isPortrait ? '100vw' : '100vh';
+    video.style.marginTop = isPortrait ? 'calc(-50vh + 50vw)' : '0';
+    video.style.marginLeft = isPortrait ? '0' : 'calc(-50vw + 50vh)';
+  };
+  
+  // オリエンテーションの変更を監視
+  window.addEventListener('orientationchange', handleOrientation);
+  handleOrientation();  // 初期設定
+  
+  document.getElementById('shootBtn').disabled = false;
 }).catch(err => {
-  alert("カメラが使えません: " + err.message);
+  const errorMessage = err.message || 'カメラにアクセスできません。';
+  alert(`エラーが発生しました: ${errorMessage}`);
+  console.error('カメラエラー:', err);
 });
 
 document.getElementById("shootBtn").onclick = async () => {
