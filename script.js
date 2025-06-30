@@ -1,4 +1,4 @@
-const apiKey = AIzaSyB1UWnMTj-tbBzHYO6iaKtWOW2ZZ-lsgMM;
+const apiKey = 
 
 // モバイルデバイスのチェック
 const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
