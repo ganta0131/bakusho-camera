@@ -5,6 +5,6 @@
     "start": "vercel dev"
   },
   "dependencies": {
-    "googleapis": "^119.0.0"
+    "@google-cloud/text-to-speech": "^4.3.0"
   }
 }
