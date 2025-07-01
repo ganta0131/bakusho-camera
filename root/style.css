@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  text-align: center;
+}
+
+video {
+  max-width: 100%;
+  border: 2px solid #333;
+  border-radius: 8px;
+}
+
+#comment {
+  margin-top: 20px;
+  font-size: 1.2em;
+  font-weight: bold;
+  min-height: 3em;
+}
+
+button {
+  margin-top: 10px;
+  font-size: 1em;
+  padding: 10px 20px;
+  cursor: pointer;
+}

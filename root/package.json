@@ -1,0 +1,10 @@
+{
+  "name": "bakusho-praise-camera",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^4.3.0"
+  }
+}
