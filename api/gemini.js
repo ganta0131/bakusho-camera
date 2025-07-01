@@ -21,25 +21,27 @@ export default async function handler(req, res) {
             {
               parts: [
                 {
-                  text:
-                    'この画像に爆笑コメントをつけてください。ツッコミっぽく、親しみやすく、笑えるようにして！',
+                  text: 'この画像に爆笑コメントをつけてください。ツッコミっぽく、親しみやすく、笑えるようにして！'
                 },
                 {
                   inlineData: {
                     mimeType: 'image/jpeg',
-                    data: imageBase64.replace(/^data:image\/jpeg;base64,/, ''),
-                  },
-                },
-              ],
-            },
-          ],
-        }),
+                    data: imageBase64.replace(/^data:image\/jpeg;base64,/, '')
+                  }
+                }
+              ]
+            }
+          ]
+        })
       }
     );
 
     const data = await response.json();
-    const result = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? 'コメントを生成できませんでした。';
 
+    // 🔍 ここが追加されたログ出力（Vercelログで見られる）
+    console.log('💬 Gemini full response:', JSON.stringify(data));
+
+    const result = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? 'コメントを生成できませんでした。';
     res.status(200).json({ comment: result });
   } catch (error) {
     console.error('Gemini API error:', error);
